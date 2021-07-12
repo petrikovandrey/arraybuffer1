@@ -71,9 +71,6 @@ class Daemon extends Character {
     }
 }
 
-const megic = new Magician("artur");
-magic.attack = 200;
-magic.stoned = true;
-magic.distance = 5;
+
 
 export { Character, Damage, Magician, Daemon };
