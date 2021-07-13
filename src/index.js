@@ -1,6 +1,4 @@
-import { match } from "core-js/fn/symbol";
-
-export class Character {
+class Character {
     constructor(name, type) {
         if (name.length < 2 || name.length > 10) {
             throw new Error("Имя должно быть от 2 до 10 символов");
@@ -33,9 +31,9 @@ export class Character {
 }
 
 class Damage extends Character {
-    constructor() {
-        this.stoned = false;
-        this.distance = 0;
+    constructor(name, type) {
+        super(name, type);
+
     }
     get stoned() {
         return this.stoned;
@@ -43,11 +41,19 @@ class Damage extends Character {
     set stoned(value) {
         this.stoned = value;
     }
+    get distance() {
+        return this.distance;
+    }
+    set distance(value) {
+        this.distance = value;
+    }
     get attack() {
+        let attack = this.attack;
+        let distance = this.distance;
         if (this.stoned) {
-            this.attack = this.attack - Math.log2(this.distance) * 5;
+            return attack - Math.log2(distance) * 5;
         } else {
-            this.attack = this.attack - this.attack * (this.distance + 1) * 10 / 100;
+            return attack - attack * distance * 10 / 100;
         }
     }
     set attack(value) {
