@@ -36,28 +36,33 @@ class Damage extends Character {
 
     }
     get stoned() {
-        return this.stoned;
+        return this._stoned;
     }
     set stoned(value) {
-        this.stoned = value;
+        this._stoned = value;
     }
     get distance() {
-        return this.distance;
+        return this._distance;
     }
     set distance(value) {
-        this.distance = value;
+        if (value === 0) {
+            value += 1;
+        }
+        this._distance = value;
     }
     get attack() {
-        let attack = this.attack;
-        let distance = this.distance;
-        if (this.stoned) {
-            return attack - Math.log2(distance) * 5;
+        
+        if (this._stoned) {
+            return (this._attack - this._attack * this._distance / 10) - (Math.log2(this._distance) * 5);
+        }
+        if (this._distance === 1) {
+            return this._attack;
         } else {
-            return attack - attack * distance * 10 / 100;
+            return (this._attack - this._attack * this._distance / 10);
         }
     }
     set attack(value) {
-        this.attack = value;
+        this._attack = value;
     }
 }
 
@@ -76,7 +81,5 @@ class Daemon extends Character {
         this.defence = 40;
     }
 }
-
-
 
 export { Character, Damage, Magician, Daemon };
